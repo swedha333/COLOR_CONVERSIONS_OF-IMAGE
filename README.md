@@ -1,211 +1,224 @@
 # COLOR_CONVERSIONS_OF-IMAGE
 ## AIM
-To write a python program using OpenCV to do the following image manipulations.
+Write a Python program using OpenCV that performs the following tasks:
 
-i) Read, display, and write an image.
+i) Read and Display an Image.
 
-ii) Access the rows and columns in an image.
+ii) Draw Shapes and Add Text.
 
-iii) Cut and paste a small portion of the image.
+iii) Image Color Conversion.
 
-iv)To perform the color conversion between RGB, BGR, HSV, and YCbCr color models.
+iv) Access and Manipulate Image Pixels.
+
+v) Image Resizing
+
+vi) Image Cropping
+
+vii) Image Flipping
+
+viii) Write and Save the Modified Image
+
+
 
 
 ## Software Required:
 Anaconda - Python 3.7
 ## Algorithm:
 ### Step1:
-Choose an image and save it as a filename.jpg ,
+Load an image from your local directory and display it.
 ### Step2:
-Use imread(filename, flags) to read the file.
-### Step3:
-Use imshow(window_name, image) to display the image.
-### Step4:
-Use imwrite(filename, image) to write the image.
-### Step5:
-End the program and close the output image windows.
-### Step6:
-Convert BGR and RGB to HSV and GRAY
-### Step7:
-Convert HSV to RGB and BGR
-### Step8:
-Convert RGB and BGR to YCrCb
-### Step9:
-Split and Merge RGB Image
-### Step10:
-Split and merge HSV Image
+<ul>
+<li> Draw a line from the top-left to the bottom-right of the image. </li>
+<li>Draw a circle at the center of the image.</li>
+<li>Draw a rectangle around a specific region of interest in the image.</li>
+<li>Add the text "OpenCV Drawing" at the top-left corner of the image.</li>
+</ul>
 
-##### Program:
+### Step3:
+<ul>
+<li>Convert the image from RGB to HSV and display it.</li>
+<li>Convert the image from RGB to GRAY and display it.</li>
+<li>Convert the image from RGB to YCrCb and display it.</li>
+<li>Convert the HSV image back to RGB and display it.</li>
+</ul>
+
+### Step4:
+<ul>
+<li>Access and print the value of the pixel at coordinates (100, 100).</li>
+<li>Modify the color of the pixel at (200, 200) to white.</li>
+</ul>
+
+### Step5:
+Resize the original image to half its size and display it.
+### Step6:
+Crop a region of interest (ROI) from the image (e.g., a 100x100 pixel area starting at (50, 50)) and display it.
+### Step7:
+<ul>
+<li>Flip the original image horizontally and display it.</li>
+<li>Flip the original image vertically and display it.</li>
+</ul>
+
+### Step8:
+Save the final modified image to your local directory.
+
+## Program:
 ### Developed By:    Sam Israel D
 ### Register Number: 212222230128
 
-### i) Read and display the image:
+### i)Read and Display an Image
 ```python
 import cv2
-image = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg', 1)
-if image is None:
-    print("Error: Image not found. Please check the file path.")
-else:
-    image = cv2.resize(image, (200, 300))
-    cv2.imshow('Shaik Shoaib Nawaz', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-```
-### ii)Write the image:
-```python
-import cv2
-image=cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg',0)
-cv2.imwrite('sam.jpg',image)
-```
-### iii)Shape of the Image:
-```python
-import cv2
-image=cv2.imread('sam.jpg',1)
-print(image.shape)
-```
-### iv)Access rows and columns:
-```python
-import random
-import cv2
-image=cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg',1)
-image=cv2.resize(image,(400,400))
-for i in range (150,200):
-  for j in range(image.shape[1]):
-      image[i][j]=[random.randint(0,255),
-                   random.randint(0,255),
-                   random.randint(0,255)] 
-cv2.imshow('part image',image)
+
+# Load an image from your local directory
+image = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/images/sam.jpg')
+
+# Display the original image
+cv2.imshow('Original Image', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### v)Cut and paste portion of image:
+### ii)Draw Shapes and Add Text
 ```python
-import cv2
-image=cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg',1)
-image=cv2.resize(image,(400,400))
-tag =image[130:200,110:190]
-image[110:180,120:200] = tag
-cv2.imshow('partimage1',image)
+# Draw a line from the top-left to the bottom-right of the image
+cv2.line(image, (0, 0), (image.shape[1], image.shape[0]), (255, 0, 0), 3)
+
+# Draw a circle at the center of the image
+center = (image.shape[1]//2, image.shape[0]//2)
+cv2.circle(image, center, 50, (0, 255, 0), 3)
+
+# Draw a rectangle around a specific region of interest (ROI)
+cv2.rectangle(image, (100, 100), (200, 200), (0, 0, 255), 3)
+
+# Add text at the top-left corner of the image
+cv2.putText(image, 'OpenCV Drawing', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+
+# Display the modified image
+cv2.imshow('Image with Shapes and Text', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### vi) BGR and RGB to HSV and GRAY:
+### iii)Image Color Conversion
 ```python
-import cv2
-img = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg',1)
-img = cv2.resize(img,(300,200))
-cv2.imshow('Original Image',img)
-hsv1 = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-cv2.imshow('BGR2HSV',hsv1)
-hsv2 = cv2.cvtColor(img,cv2.COLOR_RGB2HSV)
-cv2.imshow('RGB2HSV',hsv2)
-gray1 = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-cv2.imshow('BGR2GRAY',gray1)
-gray2 = cv2.cvtColor(img,cv2.COLOR_RGB2GRAY)
-cv2.imshow('RGB2GRAY',gray2)
+# Convert and display the image in different color spaces
+# RGB to HSV
+hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+cv2.imshow('HSV Image', hsv_image)
+cv2.waitKey(0)
+
+# RGB to GRAY
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imshow('Gray Image', gray_image)
+cv2.waitKey(0)
+
+# RGB to YCrCb
+ycrcb_image = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
+cv2.imshow('YCrCb Image', ycrcb_image)
+cv2.waitKey(0)
+
+# Convert HSV image back to RGB
+hsv_to_rgb_image = cv2.cvtColor(hsv_image, cv2.COLOR_HSV2BGR)
+cv2.imshow('HSV to RGB Image', hsv_to_rgb_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### vii) HSV to RGB and BGR:
+### iv)Access and Manipulate Image Pixels
 ```python
-import cv2
-img = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg')
-img = cv2.resize(img,(300,200))
-img = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-cv2.imshow('Original HSV Image',img)
-RGB = cv2.cvtColor(img,cv2.COLOR_HSV2RGB)
-cv2.imshow('2HSV2BGR',RGB)
-BGR = cv2.cvtColor(img,cv2.COLOR_HSV2BGR)
-cv2.imshow('HSV2RGB',BGR)
+# Access and print pixel value at (100, 100)
+pixel_value = image[100, 100]
+print(f'Pixel value at (100, 100): {pixel_value}')
+
+# Modify the pixel value at (200, 200) to white
+image[200, 200] = [255, 255, 255]
+
+# Display the modified image with pixel changes
+cv2.imshow('Modified Pixel Image', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### viii) RGB and BGR to YCrCb:
+### v)Image Resizing
 ```python
-import cv2
-img = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg')
-img = cv2.resize(img,(300,200))
-cv2.imshow('Original RGB Image',img)
-YCrCb1 = cv2.cvtColor(img, cv2.COLOR_BGR2YCrCb)
-cv2.imshow('RGB-2-YCrCb',YCrCb1)
-YCrCb2 = cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)
-cv2.imshow('BGR-2-YCrCb',YCrCb2)
+# Resize the original image to half its size
+resized_image = cv2.resize(image, (image.shape[1]//2, image.shape[0]//2))
+
+# Display the resized image
+cv2.imshow('Resized Image', resized_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### ix) Split and merge RGB Image:
+### vi)Image Cropping
 ```python
-import cv2
-img = cv2.imread('/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg',1)
-img = cv2.resize(img,(300,200))
-R = img[:,:,2]
-G = img[:,:,1]
-B = img[:,:,0]
-cv2.imshow('R-Channel',R)
-cv2.imshow('G-Channel',G)
-cv2.imshow('B-Channel',B)
-merged = cv2.merge((B,G,R))
-cv2.imshow('Merged RGB image',merged)
+# Crop a region of interest (ROI)
+roi = image[250:350, 250:350]  # Cropping a 100x100 pixel area starting at (250, 250)
+
+# Display the cropped ROI
+cv2.imshow('Cropped ROI', roi)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 ```
-### x) Split and merge HSV Image:
+### vii)Image Flipping
 ```python
-import cv2
-img = cv2.imread("/home/sam/Desktop/dipt/COLOR_CONVERSIONS_OF-IMAGE/sam.jpg",1)
-img = cv2.resize(img,(300,200))
-img=cv2.cvtColor(img,cv2.COLOR_RGB2HSV)
-H,S,V=cv2.split(img)
-cv2.imshow('Hue',H)
-cv2.imshow('Saturation',S)
-cv2.imshow('Value',V)
-merged = cv2.merge((H,S,V))
-cv2.imshow('Merged',merged)
+# Flip the image horizontally
+horizontally_flipped = cv2.flip(image, 1)
+cv2.imshow('Horizontally Flipped Image', horizontally_flipped)
+cv2.waitKey(0)
+
+# Flip the image vertically
+vertically_flipped = cv2.flip(image, 0)
+cv2.imshow('Vertically Flipped Image', vertically_flipped)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+```
+### viii)Write and Save the Modified Image
+```python
+# Save the final modified image to your local directory
+cv2.imwrite('modified_image.jpg', image)
 ```
 
 
 ## Output:
 
-### i) Read and display the image
+### i)Read and Display an Image
 
 ![image](./images/1.png)
 
-### ii)Write the image
+### ii)Draw Shapes and Add Text
 
 ![image](./images/2.png)
 
-### iii)Shape of the Image
+### iii)Image Color Conversion
 
 ![image](./images/3.png)
-
-### iv)Access rows and columns
-![image](./images/5.png)
-
-### v)Cut and paste portion of image
 ![image](./images/4.png)
-
-### vi) BGR and RGB to HSV and GRAY
+![image](./images/5.png)
 ![image](./images/6.png)
 
-### vii) HSV to RGB and BGR
+### iv)Access and Manipulate Image Pixels
 ![image](./images/7.png)
 
-### viii) RGB and BGR to YCrCb
+### v)Image Resizing
 ![image](./images/8.png)
 
-### ix) Split and merge RGB Image
+### vi)Image Cropping
 ![image](./images/9.png)
 
-### x) Split and merge HSV Image
+### vii)Image Flipping
 ![image](./images/10.png)
+
+### viii)Write and Save the Modified Image
+![image](./images/11.png)
 
 
 
 
 ## Result:
-Thus the images are read, displayed, and written ,and color conversion was performed between RGB, HSV and YCbCr color models successfully using the python program.
+Thus the images are read, displayed, and written ,and color conversion was performed successfully using the python program.
 
 
 
